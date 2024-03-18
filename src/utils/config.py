@@ -1,4 +1,5 @@
 import os
+from typing import Final
 
 from dotenv import load_dotenv
 
@@ -19,3 +20,9 @@ def get_env_var(var_name: str) -> str:
     else:
         return value
 
+
+APP_HOST: Final[str] = get_env_var("APP_HOST")
+KAFKA_HOST: Final[str] = get_env_var("KAFKA_HOST")
+APP_PORT: Final[int] = int(get_env_var("APP_PORT"))
+KAFKA_PORT: Final[int] = int(get_env_var("KAFKA_PORT"))
+KAFKA_TOPIC_NAME: Final[str] = get_env_var("KAFKA_TOPIC_NAME")
