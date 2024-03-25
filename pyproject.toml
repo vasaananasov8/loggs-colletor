@@ -11,6 +11,9 @@ fastapi = {extras = ["all"], version = "^0.110.0"}
 python-dotenv = "^1.0.1"
 sqlalchemy = "^2.0.28"
 mypy = "^1.9.0"
+alembic = "^1.13.1"
+asyncpg = "^0.29.0"
+black = "^24.3.0"
 
 
 [build-system]
