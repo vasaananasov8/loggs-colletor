@@ -2,7 +2,7 @@ import asyncio
 from logging.config import fileConfig
 
 from src.services import AbstractModul
-from src.services.db.log_db import PostgreAPI
+from src.utils.config import DB_URL
 
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
@@ -28,7 +28,7 @@ target_metadata = AbstractModul.metadata
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
-config.set_main_option('sqlalchemy.url', PostgreAPI.url_p)
+config.set_main_option("sqlalchemy.url", DB_URL)
 
 
 def run_migrations_offline() -> None:

@@ -1,6 +1,6 @@
 import datetime
 
-from sqlalchemy import ForeignKey, func, text, MetaData
+from sqlalchemy import ForeignKey, func, MetaData
 from sqlalchemy.orm import mapped_column, Mapped, as_declarative, declared_attr
 
 from src.models.log_model import LogLevel
@@ -19,7 +19,7 @@ class AbstractModul:
 
 
 class LogDbModul(AbstractModul):
-    __tablename__ = 'log'
+    __tablename__ = "log"
     app_name: Mapped[str]
     module: Mapped[str]
     level: Mapped[LogLevel]

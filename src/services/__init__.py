@@ -1,4 +1,3 @@
-__all__ = ['AbstractModul']
+__all__ = ["AbstractModul"]
 
 from .db.log_db.tables import AbstractModul
-
