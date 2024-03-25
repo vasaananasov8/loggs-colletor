@@ -31,3 +31,8 @@ HOST_DB: Final[str] = get_env_var("HOST_DB")
 PASSWORD_DB: Final[str] = get_env_var("PASSWORD_DB")
 DATABASE_NAME: Final[str] = get_env_var("DATABASE_NAME")
 PORT_DB: Final[str] = get_env_var("PORT_DB")
+
+# Создание URL для подключения к базе данных
+DB_URL: Final[str] = (
+    f"postgresql+asyncpg://{USERNAME_DB}:{PASSWORD_DB}@{HOST_DB}:{PORT_DB}/{DATABASE_NAME}"
+)
