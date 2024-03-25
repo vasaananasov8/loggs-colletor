@@ -6,9 +6,6 @@ from sqlalchemy.orm import sessionmaker
 from src.services.db.log_db.tables import LogDbModul
 from src.utils import config
 
-url_p = f'postgresql+asyncpg://{config.USERNAME_DB}:{config.PASSWORD_DB}@{config.HOST_DB}:{config.PORT_DB}' \
-        f'/{config.DATABASE_NAME}'
-
 
 class LogDBInterface(ABC):
     @abstractmethod
@@ -34,10 +31,11 @@ class SQLAlchemyDatabase(LogDBInterface):
     async def get_log_by_model(self, module):
         async with self.Session() as session:
             async with session.begin():
-                result = await session.execute(
-                    select(LogDbModul).where(LogDbModul.module == module)
-                )
-                return result.scalar().all()
-
-
-
+                query = select(LogDbModul).where(LogDbModul.module == module)
+                result = await session.execute(query)
+                logs = []
+                for row in result.fetchall():
+                    log = row[0]
+                    log_str = f"Log id: {log.id} -> {log.app_name}, {log.module}, {log.level}, {log.timestamp}, {log.message}"
+                    logs.append(log_str)
+                return logs
