@@ -2,30 +2,30 @@ import asyncio
 import datetime
 
 from src.services.db.log_db.PostgreAPI import SQLAlchemyDatabase
-from src.utils.config import DB_URL
+from src.utils.url_pg import get_url
 
 
 async def main():
-    db = SQLAlchemyDatabase(DB_URL)
+    # PostgreSQL url
+    url = get_url()
+    db = SQLAlchemyDatabase(url)
 
-    # Данные для вставки в базу данных
+    # Data to insert into the database
     log_data = {
         "app_name": "my_app",
         "module": "new",
         "level": "INFO",
-        "timestamp": datetime.datetime.strptime(
-            "2024-03-20 12:00:00", "%Y-%m-%d %H:%M:%S"
-        ),
+        "timestamp": datetime.datetime.now(),
         "message": "This is a test log message.",
     }
 
-    # Вставляем запись в базу данных
+    # Insert log's into the database
     await db.insert_log(log_data)
 
-    # Получаем все записи из базы данных для модуля "my_module"
+    # Getting all log's from the database for the "my_module" module
     logs = await db.get_log_by_model("my_module")
 
-    # Выводим полученные записи
+    # Printing the log's
     print(logs)
 
 

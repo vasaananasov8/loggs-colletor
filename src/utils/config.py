@@ -26,13 +26,9 @@ KAFKA_HOST: Final[str] = get_env_var("KAFKA_HOST")
 APP_PORT: Final[int] = int(get_env_var("APP_PORT"))
 KAFKA_PORT: Final[int] = int(get_env_var("KAFKA_PORT"))
 KAFKA_TOPIC_NAME: Final[str] = get_env_var("KAFKA_TOPIC_NAME")
+
 USERNAME_DB: Final[str] = get_env_var("USERNAME_DB")
 HOST_DB: Final[str] = get_env_var("HOST_DB")
 PASSWORD_DB: Final[str] = get_env_var("PASSWORD_DB")
 DATABASE_NAME: Final[str] = get_env_var("DATABASE_NAME")
 PORT_DB: Final[str] = get_env_var("PORT_DB")
-
-# Создание URL для подключения к базе данных
-DB_URL: Final[str] = (
-    f"postgresql+asyncpg://{USERNAME_DB}:{PASSWORD_DB}@{HOST_DB}:{PORT_DB}/{DATABASE_NAME}"
-)
