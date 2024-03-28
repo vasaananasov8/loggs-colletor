@@ -23,7 +23,10 @@ async def main():
     await db.insert_log(log_data)
 
     # Getting all log's from the database for the "new" module
-    logs = await db.get_logs("module", "new")
+    logs = await db.get_log("module", "new")
+
+    # Deleting records, if necessary, uncomment
+    # await db.delete_log("module", "new")
 
     # Printing the log's
     print(logs)

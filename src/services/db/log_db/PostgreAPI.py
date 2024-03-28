@@ -1,7 +1,7 @@
 import json
 from abc import ABC, abstractmethod
 
-from sqlalchemy import select
+from sqlalchemy import select, delete
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 from src.services.db.log_db.tables import LogDbModul
@@ -14,7 +14,11 @@ class LogDBInterface(ABC):
         pass
 
     @abstractmethod
-    async def get_logs(self, field_name, field_value):
+    async def get_log(self, field_name, field_value):
+        pass
+
+    @abstractmethod
+    async def delete_log(self, field_name, field_value):
         pass
 
 
@@ -29,7 +33,7 @@ class SQLAlchemyDatabase(LogDBInterface):
                 new_log = LogDbModul(**data)
                 session.add(new_log)
 
-    async def get_logs(self, field_name: str, field_value: str) -> str:
+    async def get_log(self, field_name: str, field_value: str) -> str:
         async with self.Session() as session:
             async with session.begin():
                 query = await session.execute(
@@ -40,3 +44,12 @@ class SQLAlchemyDatabase(LogDBInterface):
                 logs = query.scalars().all()
                 log_models = [LogModel.from_orm(log) for log in logs]
                 return json.dumps([log.json() for log in log_models])
+
+    async def delete_log(self, field_name, field_value):
+        async with self.Session() as session:
+            async with session.begin():
+                await session.execute(
+                    delete(LogDbModul).where(
+                        getattr(LogDbModul, field_name) == field_value
+                    )
+                )
