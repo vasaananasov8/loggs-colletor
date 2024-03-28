@@ -6,17 +6,21 @@ from datetime import datetime
 
 
 class LogLevel(str, Enum):
-    DEBUG = 'DEBUG'
-    INFO = 'INFO'
-    WARNING = 'WARNING'
-    ERROR = 'ERROR'
-    CRITICAL = 'CRITICAL'
+    DEBUG = "DEBUG"
+    INFO = "INFO"
+    WARNING = "WARNING"
+    ERROR = "ERROR"
+    CRITICAL = "CRITICAL"
 
 
 class LogModel(BaseModel):
     """Data model for logs."""
+
     app_name: str
     module: str
     level: LogLevel
     timestamp: datetime
     message: str
+
+    class Config:
+        from_attributes = True  # This is necessary for from_orm to work
