@@ -22,8 +22,8 @@ async def main():
     # Insert log's into the database
     await db.insert_log(log_data)
 
-    # Getting all log's from the database for the "my_module" module
-    logs = await db.get_log_by_model("my_module")
+    # Getting all log's from the database for the "new" module
+    logs = await db.get_logs("module", "new")
 
     # Printing the log's
     print(logs)
